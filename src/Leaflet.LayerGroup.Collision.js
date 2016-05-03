@@ -11,8 +11,9 @@ function extensions(parentClass) { return {
 	_cachedRelativeBoxes: [],
 	_margin: 0,
 
-	initialize: function (options) {
-		parentClass.prototype.initialize.call(this, options);
+	initialize: function (data, options) {
+		parentClass.prototype.initialize.call(this, data, options);
+		this.options = _.extend(this.options || {}, options);
 		this._margin = options.margin || 0;
 		this._rbush = null;
 	},
@@ -212,28 +213,28 @@ L.FeatureGroup.Collision = L.FeatureGroup.extend(extensions( L.FeatureGroup ));
 L.GeoJSON.Collision      = L.GeoJSON.extend(extensions( L.GeoJSON ));
 
 // Uppercase factories only for backwards compatibility:
-L.LayerGroup.collision = function (options) {
-	return new L.LayerGroup.Collision(options || {});
+L.LayerGroup.collision = function (data, options) {
+	return new L.LayerGroup.Collision(data, options || {});
 };
 
-L.FeatureGroup.collision = function (options) {
-	return new L.FeatureGroup.Collision(options || {});
+L.FeatureGroup.collision = function (data, options) {
+	return new L.FeatureGroup.Collision(data, options || {});
 };
 
-L.GeoJSON.collision = function (options) {
-	return new L.GeoJSON.Collision(options || {});
+L.GeoJSON.collision = function (data, options) {
+	return new L.GeoJSON.Collision(data, options || {});
 };
 
 // Factories should always be lowercase, like this:
-L.layerGroup.collision = function (options) {
-	return new L.LayerGroup.Collision(options || {});
+L.layerGroup.collision = function (data, options) {
+	return new L.LayerGroup.Collision(data, options || {});
 };
 
-L.featureGroup.collision = function (options) {
-	return new L.FeatureGroup.Collision(options || {});
+L.featureGroup.collision = function (data, options) {
+	return new L.FeatureGroup.Collision(data, options || {});
 };
 
-L.geoJson.collision = function (options) {
-	return new L.GeoJSON.Collision(options || {});
+L.geoJson.collision = function (data, options) {
+	return new L.GeoJSON.Collision(data, options || {});
 };
 
